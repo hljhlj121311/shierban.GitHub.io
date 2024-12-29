@@ -187,7 +187,51 @@
             border: 1px solid #eaecf0;
             margin-bottom: 20px;
 	}
-		
+	.citation-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 1000;
+        }
+		    .citation-container.show {
+            display: block;
+        }
+        
+        .citation {
+            font-size: 14px;
+            background-color: #f8f9fa;
+            padding: 15px 40px 15px 15px;
+            margin: 0 auto;
+            max-width: 800px;
+            position: relative;
+        }
+	   .close-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            background: #e0e0e0;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+	  .close-btn:hover {
+            background: #d0d0d0;
+        }
+
+
+
+
 
 
 
@@ -671,7 +715,7 @@
 		   <p>十二班在2022年建立于NLBS中学。班主任由<a href="https://penny-github-io-7sf.pages.dev/" target="_blank">彭</a>（教师）当选。第一学期十二班教室位于NLBS三教楼一楼3114教室，第二学期搬到NLBS三教楼五楼3512教室，第三学期搬到二教楼一楼2113教室。
 </p>
 		<p></p>
-		<p>十二班各科老师在开学前就已选好，老师们各自录好了关于学习科目和开学祝福的视频并发布在十二班班级群。
+		<p>十二班各科老师在开学前就已选好，老师们各自录好了关于学习科目和开学祝福的视频并发布在十二班班级群<span class="reference" onclick="toggleCitation('ref2')">[注1]</span>。
 </p>
 		   <p></p>
 		<p>学生们因第一次进入校园不太熟悉这里。经常会有走错教学楼甚至走到隔壁教室（3112）的情况。在开学第一天，十二班教室布置好了气球与礼品袋（装有糖果）。
@@ -822,6 +866,47 @@
         <p>本页面最后编辑于今年某月某日 (星期几) 不知道:多久（UTC）。</p>
         <p>本站的全部文字在知识共享 署名-相同方式共享 3.0协议之条款下提供，附加条款亦可能应用。</p>
     </div>
+<div class="citation-container" id="citation-container">
+        <div class="citation">
+            <span id="citation-content"></span>
+            <button class="close-btn" onclick="closeCitation()">×</button>
+        </div>
+    </div>
+
+     <script>
+        // 存储引用内容
+        const citations = {
+            'ref1': '初二零二五届十二班通知群',
+            'ref2': '"Wikipedia:About". Wikipedia. Wikimedia Foundation. Retrieved 2024-01-01.'
+        };
+
+        function toggleCitation(refId) {
+            const container = document.getElementById('citation-container');
+            const content = document.getElementById('citation-content');
+            
+            // 设置引用内容
+            content.textContent = citations[refId];
+            
+            // 显示引用容器
+            container.classList.add('show');
+        }
+
+        function closeCitation() {
+            const container = document.getElementById('citation-container');
+            container.classList.remove('show');
+        }
+
+        // 点击页面其他地方关闭引用
+        document.addEventListener('click', function(event) {
+            const container = document.getElementById('citation-container');
+            const isClickInsideContainer = container.contains(event.target);
+            const isClickOnReference = event.target.classList.contains('reference');
+            
+            if (!isClickInsideContainer && !isClickOnReference && container.classList.contains('show')) {
+                closeCitation();
+            }
+        });
+    </script>
 
     <script>
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
